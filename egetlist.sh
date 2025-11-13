@@ -5,7 +5,12 @@ if [ ! `which eget` ]; then
     exit 1
 fi
 
-while read package; do
-    echo "Installing $package"
-    eget $@ $package
-done
+if [ -t 0 ]; then
+    echo "no packages from stdin found"
+    exit 1
+else
+    while read package; do
+        echo "Installing $package"
+        eget $@ $package
+    done
+fi
